@@ -1,0 +1,43 @@
+SetEnvIf Authorization .+ HTTP_AUTHORIZATION=$0
+
+Options +FollowSymlinks
+RewriteEngine On
+
+# deal with admin first
+RewriteCond %{REQUEST_URI} ^/urbanfox/(admin)
+RewriteRule ^admin/assets/(.*)$ backend/web/assets/$1 [L]
+RewriteRule ^admin/css/(.*)$ backend/web/css/$1 [L]
+
+RewriteCond %{REQUEST_URI} !^/urbanfox/backend/web/(assets|css|js)/
+RewriteCond %{REQUEST_URI} ^/urbanfox/(admin)
+RewriteRule ^.*$ backend/web/index.php [L]
+
+
+# rkit
+RewriteCond %{REQUEST_URI} ^/urbanfox/(rkit)
+RewriteRule ^rkit/css/(.*)$ rkit/css/$1 [L]
+RewriteRule ^rkit/js/(.*)$ rkit/js/$1 [L]
+RewriteRule ^rkit/fonts/(.*)$ rkit/fonts/$1 [L]
+RewriteRule ^rkit/assets/(.*)$ rkit/assets/$1 [L]
+RewriteRule ^rkit/images/(.*)$ rkit/images/$1 [L]
+
+RewriteCond %{REQUEST_URI} ^/urbanfox/rkit/(css|js|images|fonts|assets)/
+RewriteRule ^rkit/js/(.*)$ rkit/js/$1 [L]
+RewriteRule ^rkit/fonts/(.*)$ rkit/fonts/$1 [L]
+RewriteRule ^rkit/assets/(.*)$ rkit/assets/$1 [L]
+RewriteRule ^rkit/css/(.*)$ rkit/css/$1 [L]
+RewriteRule ^rkit/images/(.*)$ rkit/images/$1 [L]
+
+
+#RewriteCond %{REQUEST_URI} ^/urbanfox/storage/
+#RewriteRule ^(.*)$ common/modules/file/storage/$1 [L]
+
+RewriteCond %{REQUEST_URI} !^/urbanfox/(frontend|backend)/web/(assets|css|js|images|fonts)/
+RewriteCond %{REQUEST_URI} !index.php
+RewriteCond %{REQUEST_FILENAME} !-f [OR]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^.*$ frontend/web/index.php
+
+
+
+
