@@ -4,6 +4,8 @@ namespace common\modules\link\controllers;
 use common\modules\link\forms\main\GetRealLinkForm;
 use common\modules\link\forms\main\AddLinkForm;
 use Yii;
+use common\modules\link\forms\main\TotalLink;
+use common\modules\link\forms\main\ListLink;
 use common\modules\link\forms\main\IncrementVisitor;
 use yii\web\Controller;
 /**
@@ -62,5 +64,18 @@ class DefaultController extends Controller
         return $result ? json_encode($result) : json_encode($form->getErrors());
     }
     
+    public function actionList() {
+        $form = new ListLink();
+        $form->page = isset($_GET['page']) ? $_GET['page'] : null;
+        $form->pageSize = isset($_GET['pageSize']) ? $_GET['pageSize'] : null;
+        $result = $form->list();
+        return $result ? json_encode($result) : json_encode($form->getErrors());
+        
+    }
+    
+    public function actionTotal() {
+        $form = new TotalLink();
+        return $form->get();
+    }
 }
 
