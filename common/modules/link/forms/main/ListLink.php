@@ -1,18 +1,18 @@
 <?php
-namespace common\modules\link\forms\visitor;
+namespace common\modules\link\forms\main;
 
 use rkit\components\RService;
 /**
- * IncrementVisitor service
+ * ListLink service
  *
  */
-class IncrementVisitor extends RService
+class ListLink extends RService
 {
     
     //attributes
-    public $shortenedKey;
+    public $page;
 
-
+    public $pageSize;
 
     public function rules() {
         return [

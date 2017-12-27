@@ -4,6 +4,7 @@ namespace common\modules\link\controllers;
 use common\modules\link\forms\main\GetRealLinkForm;
 use common\modules\link\forms\main\AddLinkForm;
 use Yii;
+use common\modules\link\forms\main\IncrementVisitor;
 use yii\web\Controller;
 /**
  * Default controller
@@ -51,6 +52,13 @@ class DefaultController extends Controller
         $form = new GetRealLinkForm();
         $form->shortenedKey = isset($_GET['shortenedKey']) ? $_GET['shortenedKey'] : null;
         $result = $form->get();
+        return $result ? json_encode($result) : json_encode($form->getErrors());
+    }
+    
+    public function actionIncrementVisit() {
+        $form = new IncrementVisitor();
+        $form->shortenedKey = isset($_GET['shortenedKey']) ? $_GET['shortenedKey'] : null;
+        $result = $form->increment();
         return $result ? json_encode($result) : json_encode($form->getErrors());
     }
     

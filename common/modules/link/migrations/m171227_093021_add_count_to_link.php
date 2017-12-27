@@ -3,9 +3,9 @@
 use yii\db\Migration;
 
 /**
- * Class m171227_091859_create_table_link_visitor
+ * Class m171227_093021_add_count_to_link
  */
-class m171227_091859_create_table_link_visitor extends Migration
+class m171227_093021_add_count_to_link extends Migration
 {
     /**
      * @inheritdoc
@@ -13,6 +13,7 @@ class m171227_091859_create_table_link_visitor extends Migration
     public function safeUp()
     {
 
+        $this->execute("ALTER TABLE link add visitCount int not null default 0");
     }
 
     /**
@@ -20,7 +21,7 @@ class m171227_091859_create_table_link_visitor extends Migration
      */
     public function safeDown()
     {
-        echo "m171227_091859_create_table_link_visitor cannot be reverted.\n";
+        echo "m171227_093021_add_count_to_link cannot be reverted.\n";
 
         return false;
     }
@@ -34,7 +35,7 @@ class m171227_091859_create_table_link_visitor extends Migration
 
     public function down()
     {
-        echo "m171227_091859_create_table_link_visitor cannot be reverted.\n";
+        echo "m171227_093021_add_count_to_link cannot be reverted.\n";
 
         return false;
     }
