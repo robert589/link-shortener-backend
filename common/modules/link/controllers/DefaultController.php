@@ -1,6 +1,8 @@
 <?php
 namespace common\modules\link\controllers;
 
+use common\modules\link\forms\main\GetRealLinkForm;
+use common\modules\link\forms\main\AddLinkForm;
 use Yii;
 use yii\web\Controller;
 /**
@@ -29,13 +31,27 @@ class DefaultController extends Controller
                     'Access-Control-Expose-Headers' => ['X-Pagination-Current-Page'],
                 ]
 
-            ],
-            kit\behaviors\AuthBehavior::className()
+            ]
         ];
     }
     
     public function init() {
         
+    }
+    
+    public function actionAdd() {
+        $form = new AddLinkForm();
+        $form->link = isset($_POST['link']) ? $_POST['link'] : null;
+        $shortenedLink = $form->add();
+        return $shortenedLink ? json_encode($shortenedLink) : json_encode($form->getErrors());
+    }
+    
+    
+    public function actionGet() {
+        $form = new GetRealLinkForm();
+        $form->shortenedKey = isset($_GET['shortenedKey']) ? $_GET['shortenedKey'] : null;
+        $result = $form->get();
+        return $result ? json_encode($result) : json_encode($form->getErrors());
     }
     
 }

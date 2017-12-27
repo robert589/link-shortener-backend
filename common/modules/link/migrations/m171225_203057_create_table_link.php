@@ -15,7 +15,7 @@ class m171225_203057_create_table_link extends Migration
 
         $this->execute("CREATE TABLE link(
             id int not null primary key auto_increment,
-            key varchar(200) not null,
+            shortenedKey varchar(200) not null UNIQUE,
             result text not null,
             status smallint(6) not null,
             createdAt int not null,
